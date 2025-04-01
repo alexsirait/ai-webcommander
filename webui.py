@@ -816,7 +816,7 @@ def create_ui(theme_name="Base"):
     #component-2 > div.svelte-1ed2p3z > div > span > h3 {
         display: inline-block !important;
         background-color: #3498db !important; /* Warna background badge */
-        color: white !important; /* Warna teks putih */
+        color: black !important; /* Warna teks putih */
         font-size: 16px !important;
         padding: 6px 8px !important; /* Padding untuk memberi ruang di dalam badge */
         border-radius: 25px !important; /* Sudut membulat */
