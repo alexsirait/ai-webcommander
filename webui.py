@@ -763,78 +763,244 @@ async def run_deep_search(research_task, max_search_iteration_input, max_query_p
 
 def create_ui(theme_name="Base"):
     css = """
+    /* Dark Minimalist UI Enhancements */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
     .gradio-container {
-        width: 60vw !important; 
-        max-width: 60% !important; 
+        width: 90vw !important; 
+        max-width: 90% !important; 
         margin-left: auto !important;
         margin-right: auto !important;
         padding-top: 20px !important;
+        font-family: 'Inter', sans-serif !important;
     }
+    
+    /* Header Styling */
     .header-text {
         text-align: center;
         margin-bottom: 30px;
+        position: relative;
+        padding-bottom: 20px;
     }
-    .theme-section {
-        margin-bottom: 20px;
-        padding: 15px;
-        border-radius: 10px;
+    
+    .header-text h1 {
+        font-family: 'Inter', sans-serif !important;
+        font-size: 32px !important;
+        font-weight: 600 !important;
+        color: #fff !important;
+        letter-spacing: -0.5px !important;
+        margin-bottom: 10px !important;
     }
-    footer {
-        display: none !important;
-    }
-    body > gradio-app {
-        background: radial-gradient(circle, rgba(44, 44, 44, 0.8) 20%, rgba(0, 0, 0, 1) 80%) !important;
-        color: #ffffff !important;
-        display: block !important;
-        height: 100vh !important;
-        font-family: 'Poppins', sans-serif !important;
-    }
-    #component-2 > div.svelte-1ed2p3z > div > span > h1 {
-        font-family: 'Poppins', sans-serif !important;
-        font-size: 28px !important;
-        font-weight: bold !important;
-        color: #3498db !important; /* Biru cerah */
-        letter-spacing: 2px !important;
-        animation: fadeInMove 2s ease-in-out infinite !important; /* Animasi */
-    }
-
-    /* Animasi Fade-In dan Gerak */
-    @keyframes fadeInMove {
-        0% {
-            opacity: 0 !important;
-            transform: translateY(-20px) !important;
-        }
-        50% {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-        100% {
-            opacity: 0 !important;
-            transform: translateY(20px) !important;
-        }
-    }
-    #component-2 > div.svelte-1ed2p3z > div > span > h3 {
-        display: inline-block !important;
-        background-color: #3498db !important; /* Warna background badge */
-        color: black !important; /* Warna teks putih */
+    
+    .header-text h3 {
         font-size: 16px !important;
-        padding: 6px 8px !important; /* Padding untuk memberi ruang di dalam badge */
-        border-radius: 25px !important; /* Sudut membulat */
-        font-weight: bold !important;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2) !important; /* Bayangan lembut */
+        color: #aaa !important;
+        font-weight: 400 !important;
+        margin-top: 0 !important;
     }
+    
+    /* Tab Styling */
+    .tabs {
+        border-radius: 8px !important;
+        overflow: hidden !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2) !important;
+        background: #1e1e1e !important;
+        border: 1px solid #333 !important;
+    }
+    
+    .tab-nav {
+        background: #252525 !important;
+        border-bottom: 1px solid #333 !important;
+        padding: 0 10px !important;
+    }
+    
+    .tab-nav button {
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 500 !important;
+        padding: 12px 20px !important;
+        border-radius: 6px 6px 0 0 !important;
+        transition: all 0.2s ease !important;
+        color: #aaa !important;
+    }
+    
+    .tab-nav button.selected {
+        background: #1e1e1e !important;
+        color: #fff !important;
+        border-bottom: 2px solid #3a86ff !important;
+    }
+    
+    /* Component Styling */
+    .group {
+        background: #252525 !important;
+        border-radius: 8px !important;
+        padding: 20px !important;
+        margin-bottom: 20px !important;
+        border: 1px solid #333 !important;
+    }
+    
+    .group > label {
+        font-weight: 600 !important;
+        color: #fff !important;
+        font-size: 16px !important;
+        margin-bottom: 15px !important;
+        display: block !important;
+    }
+    
+    /* Input Styling */
+    input[type="text"], input[type="number"], textarea, select {
+        background: #1e1e1e !important;
+        border: 1px solid #333 !important;
+        border-radius: 6px !important;
+        padding: 10px 15px !important;
+        color: #fff !important;
+        transition: all 0.2s ease !important;
+    }
+    
+    input[type="text"]:focus, input[type="number"]:focus, textarea:focus, select:focus {
+        border-color: #3a86ff !important;
+        box-shadow: 0 0 0 1px rgba(58, 134, 255, 0.3) !important;
+    }
+    
+    /* Button Styling */
+    button {
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 500 !important;
+        border-radius: 6px !important;
+        transition: all 0.2s ease !important;
+        text-transform: none !important;
+        letter-spacing: 0 !important;
+    }
+    
+    button.primary {
+        background: #3a86ff !important;
+        color: white !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important;
+    }
+    
+    button.primary:hover {
+        background: #4a96ff !important;
+        transform: translateY(-1px) !important;
+    }
+    
+    button.stop {
+        background: #ff4d4d !important;
+        color: white !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important;
+    }
+    
+    button.stop:hover {
+        background: #ff6666 !important;
+        transform: translateY(-1px) !important;
+    }
+    
+    /* Slider Styling */
+    .slider {
+        background: #1e1e1e !important;
+        border-radius: 6px !important;
+        padding: 10px !important;
+    }
+    
+    .slider > .slider-handle {
+        background: #3a86ff !important;
+        box-shadow: 0 0 5px rgba(58, 134, 255, 0.5) !important;
+    }
+    
+    /* Checkbox Styling */
+    .checkbox {
+        background: #1e1e1e !important;
+        border-radius: 6px !important;
+        padding: 10px !important;
+    }
+    
+    .checkbox > .checkbox-checked {
+        background: #3a86ff !important;
+        border-color: #3a86ff !important;
+    }
+    
+    /* Footer Styling */
     .fixed-footer {
         position: fixed !important;
-        bottom: 10px !important;
-        left: 10px !important;
-        font-family: 'Poppins', sans-serif !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        font-family: 'Inter', sans-serif !important;
         font-size: 14px !important;
-        color: #fff !important;
-        background-color: rgba(0, 0, 0, 0.7) !important;
-        padding: 5px 10px !important;
-        border-radius: 10px !important;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5) !important;
+        color: #aaa !important;
+        background: rgba(30, 30, 30, 0.9) !important;
+        padding: 8px 15px !important;
+        border-radius: 20px !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
         z-index: 9999 !important;
+        backdrop-filter: blur(5px) !important;
+        border: 1px solid #333 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+    }
+    
+    .fixed-footer::before {
+        content: "♥" !important;
+        color: #ff4d4d !important;
+        font-size: 14px !important;
+        margin-right: 5px !important;
+    }
+    
+    /* Browser View Styling */
+    .browser-view {
+        border-radius: 8px !important;
+        overflow: hidden !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2) !important;
+        border: 1px solid #333 !important;
+        background: #1e1e1e !important;
+    }
+    
+    /* Results Section Styling */
+    .results-section {
+        background: #252525 !important;
+        border-radius: 8px !important;
+        padding: 20px !important;
+        margin-top: 20px !important;
+        border: 1px solid #333 !important;
+    }
+    
+    .results-section h3 {
+        color: #fff !important;
+        font-weight: 600 !important;
+        margin-bottom: 15px !important;
+    }
+    
+    /* Gallery Styling */
+    .gallery {
+        border-radius: 8px !important;
+        overflow: hidden !important;
+        background: #1e1e1e !important;
+    }
+    
+    .gallery-item {
+        border-radius: 6px !important;
+        overflow: hidden !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important;
+        transition: all 0.2s ease !important;
+    }
+    
+    .gallery-item:hover {
+        transform: scale(1.02) !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
+    }
+    
+    /* Background Styling */
+    body > gradio-app {
+        background: #121212 !important;
+        color: #fff !important;
+        display: block !important;
+        height: 100vh !important;
+        font-family: 'Inter', sans-serif !important;
+        position: relative !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* Hide default footer */
+    footer {
+        display: none !important;
     }
     """
 
@@ -1068,10 +1234,11 @@ def create_ui(theme_name="Base"):
                     browser_view = gr.HTML(
                         value="<h1 style='width:80vw; height:50vh'>Waiting for browser session...</h1>",
                         label="Live Browser View",
-                        visible=False
+                        visible=False,
+                        elem_classes=["browser-view"]
                     )
 
-                gr.Markdown("### Results")
+                gr.Markdown("### Results", elem_classes=["results-section"])
                 with gr.Row():
                     with gr.Column():
                         final_result_output = gr.Textbox(
@@ -1182,7 +1349,8 @@ def create_ui(theme_name="Base"):
                     label="Recordings",
                     columns=3,
                     height="auto",
-                    object_fit="contain"
+                    object_fit="contain",
+                    elem_classes=["gallery"]
                 )
 
                 refresh_button = gr.Button("🔄 Refresh Recordings", variant="secondary")
